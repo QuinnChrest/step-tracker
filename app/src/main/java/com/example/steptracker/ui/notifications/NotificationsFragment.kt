@@ -1,17 +1,24 @@
 package com.example.steptracker.ui.notifications
 
+import android.icu.util.Calendar
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.steptracker.StepLog
+import com.example.steptracker.StepLogDatabaseHelper
 import com.example.steptracker.databinding.FragmentNotificationsBinding
+import kotlin.math.log
 
 class NotificationsFragment : Fragment() {
 
     private var _binding: FragmentNotificationsBinding? = null
+    private lateinit var db: StepLogDatabaseHelper
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -28,10 +35,15 @@ class NotificationsFragment : Fragment() {
         _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textNotifications
-        notificationsViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        db = StepLogDatabaseHelper(requireContext())
+
+        binding.addStepsButton.setOnClickListener{
+            val calendar = Calendar.getInstance()
+            calendar.set(binding.datePicker.year, binding.datePicker.month, binding.datePicker.dayOfMonth)
+            db.insertStepLog(StepLog(0, binding.stepInput.text.toString().toInt(), calendar.time.toString()))
+            Toast.makeText(requireContext(), "Steps Logged", Toast.LENGTH_SHORT).show()
         }
+
         return root
     }
 

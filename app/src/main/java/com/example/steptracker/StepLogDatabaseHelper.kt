@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 
 class StepLogDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
@@ -34,5 +35,29 @@ class StepLogDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABA
             put(COLUMN_DATE, stepLog.date)
         }
         db.insert(TABLE_NAME, null, values)
+    }
+
+    fun getStepLog(): List<StepLog>{
+        val stepLog = mutableListOf<StepLog>()
+        val db = readableDatabase
+        val query = "SELECT * FROM $TABLE_NAME"
+        val cursor = db.rawQuery(query, null)
+
+        while(cursor.moveToNext()){
+            stepLog.add(
+                StepLog(
+                    cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID)),
+                    cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_STEPS)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DATE))
+                )
+            )
+        }
+
+        cursor.close()
+        db.close()
+
+        Log.i("DATABASE", stepLog.toString())
+
+        return stepLog
     }
 }

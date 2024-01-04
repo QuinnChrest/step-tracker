@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.steptracker.StepLogDatabaseHelper
 import com.example.steptracker.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
+    private lateinit var db: StepLogDatabaseHelper
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -32,6 +34,11 @@ class HomeFragment : Fragment() {
         homeViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
+
+        db = StepLogDatabaseHelper(requireContext())
+
+        db.getStepLog()
+
         return root
     }
 
