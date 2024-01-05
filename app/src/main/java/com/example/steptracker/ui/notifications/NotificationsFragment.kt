@@ -38,9 +38,7 @@ class NotificationsFragment : Fragment() {
         db = StepLogDatabaseHelper(requireContext())
 
         binding.addStepsButton.setOnClickListener{
-            val calendar = Calendar.getInstance()
-            calendar.set(binding.datePicker.year, binding.datePicker.month, binding.datePicker.dayOfMonth)
-            db.insertStepLog(StepLog(0, binding.stepInput.text.toString().toInt(), calendar.time.toString()))
+            db.insertStepLog(StepLog(0, binding.stepInput.text.toString().toInt(), "${binding.datePicker.year}-${(binding.datePicker.month + 1)}-${binding.datePicker.dayOfMonth}"))
             Toast.makeText(requireContext(), "Steps Logged", Toast.LENGTH_SHORT).show()
         }
 

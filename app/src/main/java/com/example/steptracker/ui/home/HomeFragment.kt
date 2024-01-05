@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.steptracker.StepLog
 import com.example.steptracker.StepLogDatabaseHelper
 import com.example.steptracker.databinding.FragmentHomeBinding
 
@@ -30,14 +32,13 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
-
         db = StepLogDatabaseHelper(requireContext())
 
         db.getStepLog()
+
+        binding.ResetButton.setOnClickListener{
+            db.resetDatabase(db.writableDatabase)
+        }
 
         return root
     }

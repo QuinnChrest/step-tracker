@@ -40,7 +40,7 @@ class StepLogDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABA
     fun getStepLog(): List<StepLog>{
         val stepLog = mutableListOf<StepLog>()
         val db = readableDatabase
-        val query = "SELECT * FROM $TABLE_NAME"
+        val query = "SELECT * FROM $TABLE_NAME ORDER BY DATE($COLUMN_DATE) DESC"
         val cursor = db.rawQuery(query, null)
 
         while(cursor.moveToNext()){
@@ -59,5 +59,11 @@ class StepLogDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABA
         Log.i("DATABASE", stepLog.toString())
 
         return stepLog
+    }
+
+    fun resetDatabase(db: SQLiteDatabase?) {
+        val dropTableQuery = "DROP TABLE IF EXISTS $TABLE_NAME"
+        db?.execSQL(dropTableQuery)
+        onCreate(db)
     }
 }
