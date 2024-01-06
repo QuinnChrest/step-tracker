@@ -12,7 +12,7 @@ import com.example.steptracker.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var db: StepLogDatabaseHelper
+    private lateinit var db: FitnessDiaryDatabaseHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +33,6 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        db = StepLogDatabaseHelper(this)
+        db = FitnessDiaryDatabaseHelper(this)
     }
 }
