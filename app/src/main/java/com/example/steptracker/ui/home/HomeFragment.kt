@@ -36,7 +36,7 @@ class HomeFragment : Fragment() {
 
         db = FitnessDiaryDatabaseHelper(requireContext())
 
-        val recyclerView: RecyclerView = view.findViewById(R.id.RecyclerView)
+        val recyclerView: RecyclerView = _binding!!.RecyclerView
         val adapter = CardViewAdapter(db.getStepLog())
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
