@@ -14,9 +14,9 @@
         android:title="@string/title_add" />
 
     <item
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_stats"
         android:icon="@drawable/baseline_analytics_24"
-        android:title="@string/title_dashboard" />
+        android:title="@string/title_stats" />
 
     <item
         android:id="@+id/navigation_settings"
