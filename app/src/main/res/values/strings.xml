@@ -2,6 +2,6 @@
     <string name="app_name">steptracker</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Stats</string>
-    <string name="title_notifications">Add</string>
+    <string name="title_add">Add</string>
     <string name="title_settings">Settings</string>
 </resources>

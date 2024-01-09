@@ -1,20 +1,18 @@
-package com.example.steptracker.ui.notifications
+package com.example.steptracker.ui.add
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.example.steptracker.DiaryEntry
 import com.example.steptracker.FitnessDiaryDatabaseHelper
-import com.example.steptracker.databinding.FragmentNotificationsBinding
+import com.example.steptracker.databinding.FragmentAddBinding
 
-class NotificationsFragment : Fragment() {
+class AddFragment : Fragment() {
 
-    private var _binding: FragmentNotificationsBinding? = null
+    private var _binding: FragmentAddBinding? = null
     private lateinit var db: FitnessDiaryDatabaseHelper
 
     // This property is only valid between onCreateView and
@@ -26,7 +24,7 @@ class NotificationsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
+        _binding = FragmentAddBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         db = FitnessDiaryDatabaseHelper(requireContext())
