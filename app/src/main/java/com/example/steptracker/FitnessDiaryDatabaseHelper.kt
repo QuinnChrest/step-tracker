@@ -5,6 +5,8 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
+import java.sql.PreparedStatement
+import java.sql.ResultSet
 
 class FitnessDiaryDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
@@ -43,6 +45,22 @@ class FitnessDiaryDatabaseHelper(context: Context) : SQLiteOpenHelper(context, D
             put(COLUMN_DATE, diaryEntry.date)
         }
         db.insert(TABLE_NAME, null, values)
+        db.close()
+    }
+
+    fun checkIfDateExists(date: String): Boolean{
+        val db = readableDatabase
+        val checkForDuplicateQuery = "SELECT COUNT(*) FROM $TABLE_NAME WHERE $COLUMN_DATE = $date"
+        val cursor = db.rawQuery(checkForDuplicateQuery, null)
+        var exists = false
+
+        if (cursor.moveToFirst()) {
+            exists = cursor.getInt(0) > 0
+        }
+
+        cursor.close()
+        db.close()
+        return exists
     }
 
     fun getStepLog(): List<DiaryEntry>{
